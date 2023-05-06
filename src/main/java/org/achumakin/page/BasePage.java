@@ -6,7 +6,7 @@ import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import org.achumakin.core.ConfigReader;
-import org.achumakin.model.PortalModel;
+import org.achumakin.model.config.PortalModel;
 
 public class BasePage {
 
@@ -25,6 +25,10 @@ public class BasePage {
             pageInstance = context.newPage();
             pageInstance.navigate(portalConfig.getBaseUrl());
         }
+    }
+
+    public void closeBrowser() {
+        playwright.close();
     }
 
 }
