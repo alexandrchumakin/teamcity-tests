@@ -1,6 +1,5 @@
 package org.achumakin.api;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.achumakin.core.ConfigReader;
@@ -61,7 +60,6 @@ public class TeamCityApiClient {
                 .auth()
                 .basic(config.getPortal().getUsername(), config.getPortal().getPassword())
                 .baseUri(config.getPortal().getBaseUrl())
-//                .headers("Content-Type", ContentType.JSON, "Accept", ContentType.JSON);
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON);
     }

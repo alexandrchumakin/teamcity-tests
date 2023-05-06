@@ -2,7 +2,6 @@ package org.achumakin.page;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.assertions.LocatorAssertions;
-import com.microsoft.playwright.options.WaitForSelectorState;
 import lombok.Getter;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
