@@ -24,7 +24,7 @@ public class ProjectsPage extends BasePage {
     private final Locator projectRemovedMessage;
 
     public ProjectsPage() {
-        createProjectButton = pageInstance.locator("[data-test='create-project']");
+        createProjectButton = pageInstance.locator("text=New project...");
         repoUrlInput = pageInstance.locator("#url");
         proceedButton = pageInstance.locator("input[value='Proceed']");
         savingIcon = pageInstance.locator("//i[@id='saving' and @title='Please wait...']");
@@ -52,7 +52,9 @@ public class ProjectsPage extends BasePage {
     public void deleteProject() {
         actionsButton.click();
         deleteProjectButton.click();
-        confirmationInput.type(portalConfig.getHost());
+        // in some cases input could be re-rendered, and it's hard to catch right control state
+        // to prevent blinks I used 0.5 sec wait here before typing
+        confirmationInput.type(portalConfig.getHost(), new Locator.TypeOptions().setTimeout(500));
         deleteButton.click();
         assertThat(projectRemovedMessage).isVisible();
     }

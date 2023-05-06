@@ -23,6 +23,7 @@ public class ProjectsTest {
     @AfterAll
     static void cleanUp() {
         projectsPage.deleteProject();
+        projectsPage.closeBrowser();
     }
 
     @Test

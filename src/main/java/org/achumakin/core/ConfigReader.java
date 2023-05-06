@@ -2,7 +2,7 @@ package org.achumakin.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import org.achumakin.model.ConfigModel;
+import org.achumakin.model.config.ConfigModel;
 
 import java.io.IOException;
 

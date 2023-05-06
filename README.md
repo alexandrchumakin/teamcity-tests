@@ -34,17 +34,51 @@ Some other important features to be verified:
 - Java 17
 - Maven 3.8
 - Playwright for Java
+- RestAssured
+
+## Run tests locally
+
+- Install Java 17+ version (follow [this](https://docs.oracle.com/en/java/javase/17/install/) instructions)
+- Maven 3.8 (reach out to [this link](https://maven.apache.org/install.html))
+- Build project with `mvn clean install -DskipTests`
+- Run tests with `mvn test`
 
 ## Technical decisions
 
-I personally prefer to follow AAA principe for building test automation where every test has all the required setup,
-performs actions and has an assertion or set of soft assertions related to the same functionality.
-However, I want to automate ....
+I personally prefer to follow [AAA principe](https://blog.ncrunch.net/post/arrange-act-assert-aaa-testing.aspx) for
+building test automation where every test has all the required setup, performs actions and has an assertion or set of
+soft assertions related to the same functionality.
 
 ### Web test
 
 Playwright was chosen as a tool for web automation as it's the most modern, fast and reliable frameworks for this
 purpose. It wins in all possible aspects of all competitors including WebDriver that could be used with Java.
 I used a classic page object pattern to wrap pages-related functionality in separate layer of test framework for ease of
-use for this simple example. 
+use for this simple example.
 
+#### Web synchronization
+
+It's one of the most known problems in UI test automation that we need to wait enough time for elements to be rendered
+and have appropriate state (clickable, visible etc.). Fortunately, Playwright implements the most of required syncs
+under the hood, and we only need to implement additional synchronization like waiting for `save` icon to appear and then
+wait until it's hidden. There are two main approaches for that: using `waitFor` method or Playwright built-in
+`assertThat` function that was more appropriate in my case as it can operate with more controls' states.
+
+### API test
+
+In order to test build pipeline functionality without dependency on existing test that checks git project importing,
+my TeamCity instance has pre-configured project that I can use to verify Build functionality.
+This check is implemented in API level with using of RestAssured library. In this way we can keep tests independent
+of each other and show different approaches for test automation depends on the application level under test.
+
+#### API synchronization
+
+Once we put a new build to a queue, we should wait until it's finished to check the final state. I used `awaitility`
+library to dynamically wait for a `finished` build state to be able to verify the final build status.
+
+### Yaml configuration
+
+All the configurations are stored in a separate [config.yaml](src/main/resources/config.yml) file to easily maintain
+this. The reason of using yaml format is to store configurations in non-flat format like properties-file and being able
+to grow project configuration without a risk of having a huge unmaintainable config-file.
+Config is parsed into custom Java model that allows to operate with config values like with any other complex object.

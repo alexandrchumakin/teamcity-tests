@@ -1,4 +1,4 @@
-package org.achumakin.model;
+package org.achumakin.model.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
