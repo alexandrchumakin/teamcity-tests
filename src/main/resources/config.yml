@@ -1,0 +1,6 @@
+portal:
+  baseUrl: https://alexchumakin.teamcity.com
+  host: alexchumakin.teamcity.com
+  username: alexchumakin
+  password: MFJvZnQ2OEFoWEpCdDg0ZXdydm8=
+  repoUrl: https://gitlab.com/alexandrchumakin-docker/node-docker-sample
