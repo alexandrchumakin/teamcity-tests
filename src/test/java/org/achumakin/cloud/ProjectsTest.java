@@ -1,4 +1,4 @@
-package org.achumakin;
+package org.achumakin.cloud;
 
 import org.achumakin.page.LoginPage;
 import org.achumakin.page.ProjectsPage;

@@ -2,6 +2,7 @@ package org.achumakin.api;
 
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.achumakin.core.ConfigReader;
 import org.achumakin.model.config.ConfigModel;
 import org.achumakin.model.tc.BuildQueueRequest;
@@ -16,6 +17,7 @@ import java.util.function.Predicate;
 
 import static io.restassured.RestAssured.given;
 
+@Slf4j
 public class TeamCityApiClient {
 
     private final ConfigModel config;
@@ -25,6 +27,7 @@ public class TeamCityApiClient {
     }
 
     public BuildQueueResponse triggerBuild() {
+        log.info("Triggering new build for project {}", config.getApi().getBuild().getProjectId());
         var body = BuildQueueRequest
                 .builder()
                 .buildType(BuildType
@@ -40,6 +43,7 @@ public class TeamCityApiClient {
     }
 
     public GetBuildResponse getBuild(String buildId) {
+        log.info("Get info for build with id {}", buildId);
         return getReqSpec()
                 .get(String.format("httpAuth/app/rest/builds/%s", buildId))
                 .as(GetBuildResponse.class);
@@ -49,8 +53,8 @@ public class TeamCityApiClient {
         Predicate<GetBuildResponse> predicate = response -> response.getState().equals(state);
         Callable<GetBuildResponse> supplier = () -> getBuild(buildId);
         return Awaitility.await()
-                .atMost(Duration.ofSeconds(40))
-                .pollInterval(Duration.ofSeconds(4))
+                .atMost(Duration.ofSeconds(60))
+                .pollInterval(Duration.ofSeconds(5))
                 .ignoreExceptions()
                 .until(supplier, predicate);
     }

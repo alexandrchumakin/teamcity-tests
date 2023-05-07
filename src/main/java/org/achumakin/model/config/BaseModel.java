@@ -9,7 +9,7 @@ import java.util.Base64;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PortalModel {
+public class BaseModel {
 
     private String baseUrl;
     private String host;

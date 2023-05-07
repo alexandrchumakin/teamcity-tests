@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  teamcity:
+    image: jetbrains/teamcity-server:2022.10.3
+    ports:
+      - "8111:8111"
+
+  teamcity-agent:
+    image: jetbrains/teamcity-agent:2022.10.3
+    environment:
+      SERVER_URL: http://teamcity:8111
+
+  integration-tests:
+    build: .
+    container_name: infra-int-tests
+    volumes:
+      - ./target:/tests/target
+    depends_on:
+      - teamcity
+      - teamcity-agent
