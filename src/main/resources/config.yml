@@ -7,7 +7,6 @@ portal:
   repoUrl: https://gitlab.com/alexandrchumakin-docker/node-docker-sample
 local:
   baseUrl: http://teamcity:8111
-#  baseUrl: http://localhost:8111
   username: admin
   password: YWRtaW4=
 api:
