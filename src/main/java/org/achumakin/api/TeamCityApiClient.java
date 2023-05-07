@@ -43,17 +43,19 @@ public class TeamCityApiClient {
     }
 
     public GetBuildResponse getBuild(String buildId) {
-        log.info("Get info for build with id {}", buildId);
-        return getReqSpec()
+        var response = getReqSpec()
                 .get(String.format("httpAuth/app/rest/builds/%s", buildId))
                 .as(GetBuildResponse.class);
+        log.info("Received info for build with id {}: state: {}, status: {}",
+                buildId, response.getState(), response.getStatus());
+        return response;
     }
 
     public GetBuildResponse getBuildWithState(String buildId, String state) {
         Predicate<GetBuildResponse> predicate = response -> response.getState().equals(state);
         Callable<GetBuildResponse> supplier = () -> getBuild(buildId);
         return Awaitility.await()
-                .atMost(Duration.ofSeconds(60))
+                .atMost(Duration.ofSeconds(120))
                 .pollInterval(Duration.ofSeconds(5))
                 .ignoreExceptions()
                 .until(supplier, predicate);

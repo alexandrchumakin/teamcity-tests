@@ -1,0 +1,20 @@
+name: Tests pipeline
+
+on: [ push ]
+
+jobs:
+  tests:
+    name: Run test
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run compose configuration
+        run: docker-compose up --abort-on-container-exit
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: JUnit Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit

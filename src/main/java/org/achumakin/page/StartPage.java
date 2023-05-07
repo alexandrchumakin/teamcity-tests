@@ -1,6 +1,11 @@
 package org.achumakin.page;
 
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.assertions.LocatorAssertions;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

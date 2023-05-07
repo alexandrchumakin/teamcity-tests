@@ -48,14 +48,24 @@ In order to run all tests including infra-related functionality, reach out to th
 
 ## Run all tests locally in Docker
 
-I implemented an example of isolation front-end tests that verifies installation of TeamCity and Configuring of an Agent 
-using Docker Compose to show how such complex infrastructure-related tests could be configured. We can also run other 
+I implemented an example of isolation front-end tests that verifies installation of TeamCity and Configuring of an Agent
+using Docker Compose to show how such complex infrastructure-related tests could be configured. We can also run other
 
-- Docker
-- Docker Compose v2+ ()
+- Docker (follow [this link](https://docs.docker.com/engine/install/) for installation instructions)
+- Docker Compose v2+ (installation steps can be found [here](https://docs.docker.com/compose/install/))
 - Run infra tests with `docker-compose up --abort-on-container-exit`
 
-**Note:** it's easy to change 
+**Note:** it's easy to change docker-compose approach to only run infra-related tests in this configuration and have a
+separate one for Cloud tests. I'll leave it as is with a current amount of tests for a simpler CI setup.
+
+## CI
+
+[This](.github/workflows/github-actions-pipelines.yml) yaml-configuration run GutHub Actions pipeline on every push.
+After tests are finished, we mount `target` folder from tests' container to the project repo and parse JUnit reports
+with existing `action-junit-repor` pipe and shows the tests report in a separate view:
+![pipeline result](docs/media/test-report-ci.png)
+For more detailed result overview reach out to
+the [latest pipeline](https://github.com/alexandrchumakin/teamcity-tests/actions) details.
 
 ## Technical decisions
 
