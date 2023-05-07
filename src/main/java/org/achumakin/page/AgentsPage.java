@@ -14,7 +14,7 @@ public class AgentsPage extends StartPage {
 
     public AgentsPage() {
         unauthorizedSection = pageInstance.locator("[data-hint-container-id='unauthorized-agents']");
-        teamcityAgentLink = pageInstance.locator("text=teamcity-tests-teamcity-agent-1");
+        teamcityAgentLink = pageInstance.locator("text=teamcity-agent-1");
         authorizeButton = pageInstance.locator(".ring-button-content",
                 new Page.LocatorOptions().setHas(pageInstance.locator("text=Authorize")));
         authorizePopupButton = pageInstance.locator(".ring-island-content >> .ring-button-content >> text=Authorize");
