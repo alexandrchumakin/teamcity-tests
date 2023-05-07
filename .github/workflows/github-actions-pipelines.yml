@@ -1,6 +1,6 @@
 name: Tests pipeline
 
-on: [push]
+on: [ push ]
 
 jobs:
   tests:
@@ -12,7 +12,9 @@ jobs:
       - name: Run compose configuration
         run: docker-compose up --abort-on-container-exit
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v3
+        uses: dorny/test-reporter@v1
         if: always()
         with:
-          report_paths: 'target/surefire-reports/*.xml'
+          name: JUnit Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
