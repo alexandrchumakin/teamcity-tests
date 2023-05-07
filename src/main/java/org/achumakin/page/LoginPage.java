@@ -1,7 +1,9 @@
 package org.achumakin.page;
 
 import com.microsoft.playwright.Locator;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class LoginPage extends BasePage {
 
     private final Locator loginPasswordSwitch;
@@ -17,6 +19,7 @@ public class LoginPage extends BasePage {
     }
 
     public void loginWithUser() {
+        log.info("Logging into TeamCity with {} user", portalConfig.getUsername());
         loginPasswordSwitch.click();
         usernameInput.type(portalConfig.getUsername());
         passwordInput.type(portalConfig.getPassword());

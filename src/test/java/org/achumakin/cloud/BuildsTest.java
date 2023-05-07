@@ -1,4 +1,4 @@
-package org.achumakin;
+package org.achumakin.cloud;
 
 import org.achumakin.api.TeamCityApiClient;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,6 +18,7 @@ public class BuildsTest {
     }
 
     @Test
+    @DisplayName("Trigger new build and wait for succeeded status")
     void triggerNewBuild() {
         var triggerBuildResp = apiClient.triggerBuild();
         var getBuildResp = apiClient.getBuildWithState(triggerBuildResp.getId(), "finished");

@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ConfigModel {
 
-    private PortalModel portal;
+    private Boolean headless;
+    private BaseModel portal;
+    private BaseModel local;
     private ApiModel api;
 
 }

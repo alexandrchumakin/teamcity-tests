@@ -3,10 +3,12 @@ package org.achumakin.page;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.assertions.LocatorAssertions;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 @Getter
+@Slf4j
 public class ProjectsPage extends BasePage {
 
     private final Locator createProjectButton;
@@ -40,16 +42,20 @@ public class ProjectsPage extends BasePage {
     }
 
     public void createProjectFromRepo() {
+        log.info("Creating project from git repo");
         createProjectButton.click();
         repoUrlInput.type(portalConfig.getRepoUrl());
         proceedButton.click();
         waitForSaving();
         assertThat(connectionSuccessfulMessage).isVisible();
+        log.info("Git repo is configured");
         proceedButton.click();
         waitForSaving();
+        log.info("Project has been successfully added");
     }
 
     public void deleteProject() {
+        log.info("Deleting project from TeamCity");
         actionsButton.click();
         deleteProjectButton.click();
         // in some cases input could be re-rendered, and it's hard to catch right control state

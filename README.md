@@ -35,13 +35,27 @@ Some other important features to be verified:
 - Maven 3.8
 - Playwright for Java
 - RestAssured
+- Docker Compose
 
-## Run tests locally
+## Run cloud tests locally
+
+In order to run all tests including infra-related functionality, reach out to the next section.
 
 - Install Java 17+ version (follow [this](https://docs.oracle.com/en/java/javase/17/install/) instructions)
 - Maven 3.8 (reach out to [this link](https://maven.apache.org/install.html))
 - Build project with `mvn clean install -DskipTests`
 - Run tests with `mvn test`
+
+## Run all tests locally in Docker
+
+I implemented an example of isolation front-end tests that verifies installation of TeamCity and Configuring of an Agent 
+using Docker Compose to show how such complex infrastructure-related tests could be configured. We can also run other 
+
+- Docker
+- Docker Compose v2+ ()
+- Run infra tests with `docker-compose up --abort-on-container-exit`
+
+**Note:** it's easy to change 
 
 ## Technical decisions
 
