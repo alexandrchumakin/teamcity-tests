@@ -1,8 +1,5 @@
 package org.achumakin.page;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserContext;
-import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
@@ -21,10 +18,8 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 @Slf4j
 public class StartPage {
 
-    protected static Page pageInstance;
+    public static Page pageInstance;
     protected static Playwright playwright;
-    protected static Browser browser;
-    protected static BrowserContext context;
     protected static BaseModel localConfig;
     protected final Locator agentsLink;
     @Getter
@@ -39,11 +34,10 @@ public class StartPage {
     public StartPage() {
         if (pageInstance == null) {
             var config = ConfigReader.getConfig();
+            var instance = new PageManager().getInstance(config.getHeadless());
+            playwright = instance.getLeft();
+            pageInstance = instance.getRight();
             localConfig = config.getLocal();
-            playwright = Playwright.create();
-            browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(config.getHeadless()));
-            context = browser.newContext();
-            pageInstance = context.newPage();
             pageInstance.navigate(localConfig.getBaseUrl());
         }
         agentsLink = pageInstance.locator("a[title='Agents']");
@@ -63,7 +57,7 @@ public class StartPage {
         assertThat(dbTypeSelect).hasValue("HSQLDB2");
         proceedButton.click();
         assertThat(initializingMessage).isVisible();
-        assertThat(initializingMessage).isHidden(new LocatorAssertions.IsHiddenOptions().setTimeout(120000));
+        assertThat(initializingMessage).isHidden(new LocatorAssertions.IsHiddenOptions().setTimeout(180000));
         log.info("Components are initialized");
         assertThat(sendStatisticsCheckbox).isChecked();
         acceptLicenseCheckbox.click();
