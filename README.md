@@ -38,6 +38,9 @@ separate one for Cloud tests. I'll leave it as is with a current amount of tests
 After tests are finished, we mount `target` folder from tests' container to the project repo and parse JUnit reports
 with existing `test-reporter` pipe and shows the tests report in a separate view:
 ![pipeline result](docs/media/test-report-ci.png)
+Screenshots and videos could be downloaded from Artifacts section:
+![artifacts ci](docs/media/artifacts-ci.png)
+
 For more detailed result overview reach out to
 the [latest pipeline](https://github.com/alexandrchumakin/teamcity-tests/actions) details.
 

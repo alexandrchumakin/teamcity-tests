@@ -57,9 +57,9 @@ public class ProjectsPage extends BasePage {
     public void deleteProject() {
         log.info("Deleting project from TeamCity");
         actionsButton.click();
-        deleteProjectButton.click();
         // in some cases input could be re-rendered, and it's hard to catch right control state
-        // to prevent blinks I used 0.5 sec wait here before typing
+        // to prevent blinks I used short static wait here before proceeding
+        deleteProjectButton.click(new Locator.ClickOptions().setDelay(500));
         confirmationInput.type(portalConfig.getHost(), new Locator.TypeOptions().setTimeout(500));
         deleteButton.click();
         assertThat(projectRemovedMessage).isVisible();

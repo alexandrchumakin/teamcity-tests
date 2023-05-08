@@ -57,7 +57,7 @@ public class StartPage {
         assertThat(dbTypeSelect).hasValue("HSQLDB2");
         proceedButton.click();
         assertThat(initializingMessage).isVisible();
-        assertThat(initializingMessage).isHidden(new LocatorAssertions.IsHiddenOptions().setTimeout(120000));
+        assertThat(initializingMessage).isHidden(new LocatorAssertions.IsHiddenOptions().setTimeout(180000));
         log.info("Components are initialized");
         assertThat(sendStatisticsCheckbox).isChecked();
         acceptLicenseCheckbox.click();
